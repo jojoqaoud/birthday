@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mido's Birthday</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0b2239;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.8s ease;
+        }
+
+        .bunting-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 45px;
+            background: repeating-linear-gradient(90deg, #5bc0df 0px, #5bc0df 20px, #0b2239 20px, #0b2239 40px);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 60%, 95% 100%, 90% 60%, 85% 100%, 80% 60%, 75% 100%, 70% 60%, 65% 100%, 60% 60%, 55% 100%, 50% 60%, 45% 100%, 40% 60%, 35% 100%, 30% 60%, 25% 100%, 20% 60%, 15% 100%, 10% 60%, 5% 100%, 0% 60%);
+            opacity: 0.4;
+            z-index: 1;
+        }
+
+        .sticker {
+            position: absolute;
+            font-size: 1.8rem;
+            z-index: 5;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.4));
+            user-select: none;
+        }
+        .st-star1 { top: 12%; left: 8%; transform: rotate(-15deg); }
+        .st-star2 { bottom: 15%; right: 10%; transform: rotate(20deg); }
+        .st-heart1 { top: 15%; left: 22%; transform: rotate(10deg); font-size: 2rem; }
+        .st-heart2 { bottom: 25%; left: 8%; transform: rotate(-15deg); }
+        .st-balloon1 { top: 35%; left: 12%; transform: rotate(-10deg); }
+        .st-balloon2 { bottom: 40%; right: 12%; transform: rotate(15deg); }
+        .st-party { top: 22%; right: 5%; transform: rotate(12deg); font-size: 2.2rem; }
+
+        .screen-one {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 500px;
+            height: 100vh;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .collage-container {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .collage-envelope {
+            position: absolute;
+            background: #fbf8f0;
+            color: #2b2b2b;
+            padding: 25px 20px;
+            width: 210px;
+            box-shadow: -8px 12px 25px rgba(0,0,0,0.5);
+            transform: rotate(-8deg) translateX(-45px) translateY(-10px);
+            border-radius: 4px;
+            z-index: 4;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .collage-envelope:hover {
+            transform: rotate(-5deg) translateX(-45px) translateY(-15px) scale(1.03);
+        }
+        .collage-envelope h3 {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            color: #12161a;
+        }
+        .collage-envelope p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        .wax-seal {
+            position: absolute;
+            bottom: -12px;
+            right: -12px;
+            font-size: 2.2rem;
+        }
+
+        .collage-photo {
+            position: absolute;
+            background: white;
+            padding: 12px 12px 34px 12px;
+            width: 260px;
+            box-shadow: 10px 15px 30px rgba(0,0,0,0.6);
+            transform: rotate(6deg) translateX(150px) translateY(-40px);
+            z-index: 3;
+            border-radius: 8px;
+        }
+        .collage-photo .photo-crop {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            border-radius: 4px;
+            outline: 2px dashed #ccc;
+            outline-offset: -2px;
+            background-color: #eee;
+        }
+        .collage-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+            display: block;
+        }
+
+        .screen-one h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        .screen-one p.subtitle {
+            font-size: 0.95rem;
+            color: #b0c4de;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .enter-btn {
+            background-color: #ffffff;
+            color: #0b2239;
+            border: none;
+            padding: 14px 45px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255,255,255,0.15);
+            transition: all 0.3s ease;
+        }
+        .enter-btn:hover {
+            transform: scale(1.05);
+            background-color: #5bc0df;
+            color: #fff;
+            box-shadow: 0 5px 20px rgba(91, 192, 223, 0.4);
+        }
+
+        .screen-two {
+            display: none;
+            opacity: 0;
+            width: 100%;
+            max-width: 950px;
+            padding: 60px 40px;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+            transition: opacity 1s ease;
+        }
+
+        .left-side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .sticker-photo-container {
+            position: relative;
+            width: 280px;
+            height: 340px;
+            margin: 40px auto;
+            z-index: 10;
+        }
+
+        .sticker-main-photo {
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            padding: 10px 10px 30px 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border-radius: 12px;
+            transform: rotate(-2deg);
+            border: 4px solid #fff;
+            outline: 2px dashed #ccc;
+            overflow: hidden;
+        }
+
+        .sticker-main-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 52% 20%;
+            transform: scale(1.15);
+            border-radius: 4px;
+            background-color: #eee;
+        }
+
+        .birthday-cap {
+            position: absolute;
+            top: -45px;
+            left: 85px;
+            font-size: 4.5rem;
+            z-index: 15;
+            transform: rotate(-10deg);
+            filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.3));
+            pointer-events: none;
+        }
+
+        .cool-sunglasses {
+            position: absolute;
+            top: 95px;
+            left: 98px;
+            font-size: 2.5rem;
+            z-index: 14;
+            transform: rotate(-2deg);
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.4));
+            pointer-events: none;
+        }
+
+        .cake-sticker {
+            position: absolute;
+            bottom: -15px;
+            left: -25px;
+            font-size: 4rem;
+            z-index: 16;
+            transform: rotate(15deg);
+            filter: drop-shadow(3px 5px 5px rgba(0,0,0,0.3));
+        }
+
+        .balloon-sticker-left {
+            position: absolute;
+            top: 40px;
+            left: -55px;
+            font-size: 3.5rem;
+            z-index: 5;
+            transform: rotate(-20deg);
+        }
+
+        .balloon-sticker-right {
+            position: absolute;
+            bottom: 50px;
+            right: -55px;
+            font-size: 3.5rem;
+            z-index: 5;
+            transform: rotate(15deg);
+        }
+
+        .lightning-sticker {
+            position: absolute;
+            top: 15px;
+            right: -25px;
+            font-size: 2rem;
+            transform: rotate(10deg);
+        }
+
+        .birthday-title {
+            font-family: 'Caveat', cursive;
+            font-size: 3.8rem;
+            color: #fff;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+            line-height: 1.2;
+        }
+
+        .right-side {
+            flex: 1.2;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 40px;
+            border-radius: 20px;
+            border-left: 4px solid #5bc0df;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .love-letter {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            font-weight: 300;
+            color: #f0f4f8;
+        }
+        .love-letter p {
+            margin-bottom: 20px;
+        }
+        .signature {
+            font-family: 'Caveat', cursive;
+            font-size: 2.5rem;
+            margin-top: 25px;
+            color: #5bc0df;
+            display: block;
+            text-align: right;
+        }
+
+        .hidden {
+            opacity: 0 !important;
+            transform: scale(0.92) !important;
+            pointer-events: none;
+            position: absolute;
+        }
+
+        @media (max-width: 768px) {
+            .screen-two {
+                flex-direction: column;
+                padding: 40px 20px;
+                height: auto;
+            }
+            .birthday-title {
+                font-size: 3rem;
+                margin-bottom: 10px;
+            }
+            .right-side {
+                padding: 25px;
+            }
+            .sticker-photo-container {
+                width: 240px;
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bunting-top"></div>
+
+    <div class="sticker st-star1">⭐</div>
+    <div class="sticker st-heart1">❤️</div>
+    <div class="sticker st-balloon1">🎈</div>
+    <div class="sticker st-party">🎉</div>
+    <div class="sticker st-balloon2">🎈</div>
+    <div class="sticker st-star2">✨</div>
+    <div class="sticker st-heart2">❤️</div>
+
+    <!-- ==================== SCREEN ONE ==================== -->
+    <div class="screen-one" id="screenOne">
+        <div class="collage-container">
+            <div class="collage-envelope" onclick="goToBirthdayScreen()">
+                <h3>To my love,</h3>
+                <p>Mohamed</p>
+                <div class="wax-seal">❤️</div>
+            </div>
+
+            <!-- Put your couple photo file next to this HTML file and change the src below -->
+            <div class="collage-photo">
+                <div class="photo-crop">
+                    <img src="couple.jpg" alt="Our Beautiful Memory" id="couplePhoto"
+                         onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22260%22 height=%22220%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23eee%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2214%22 fill=%22%23999%22>Add couple.jpg</text></svg>';">
+                </div>
+            </div>
+        </div>
+
+        <h1>Surprise hamody mody mody :)</h1>
+        <p class="subtitle">Click on the letter or the button below</p>
+        <button class="enter-btn" onclick="goToBirthdayScreen()">Open the Surprise ✨</button>
+    </div>
+
+    <!-- ==================== SCREEN TWO ==================== -->
+    <div class="screen-two" id="screenTwo">
+
+        <div class="left-side">
+            <div class="sticker-photo-container">
+                <div class="birthday-cap">🥳</div>
+               
+                <div class="cake-sticker">🎂</div>
+                <div class="balloon-sticker-left">🎈</div>
+                <div class="balloon-sticker-right">🎈</div>
+                <div class="lightning-sticker">⚡⭐</div>
+
+                <!-- Put Mohamed's photo next to this HTML file and change the src below -->
+                <div class="sticker-main-photo">
+                    <img src="mohamed.jpg" alt="Mohamed"
+                         onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22340%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23eee%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2216%22 fill=%22%23999%22>Add mohamed.jpg</text></svg>';">
+                </div>
+            </div>
+            <h1 class="birthday-title">Happy Birthday<br>Mohamed❤️!</h1>
+        </div>
+
+        <div class="right-side">
+            <div class="love-letter">
+                <p>22!! woww da ehna kberna khales , kol sana wenta tyb ya rohalbyyyy. mahzoza gdn gdnnn enk m3aya w gnby ya hamody . enta ragly w far7ty w amany w kol haga fy hyaty.</p>
+                <p>sabb dehkty enta ya mido. 3omry ma ashb3 mnk mahma fdlna sawa , ana lw lya 3omr  fa 3ayza a3esho m3ak ya ely maly 3lya . kol sana wenta ahla w agmal w ahan wahed fy el donia , kol sana wenta maly 3lena el donia w ya rab ma thrmna mn dehktk wla dakhltk 3lena ya rohy </p>
+                <p>Thank you for being my partner, my best friend, and my greatest blessing. I am so incredibly lucky to call you mine, today and always.</p>
+                <span class="signature">Bhbkkk , joj</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Put your chosen song file next to this HTML file, named song.mp3 (mp3/wav/ogg all work) -->
+    <audio id="bgSong" src="song.mp3" preload="auto"></audio>
+
+    <script>
+        function goToBirthdayScreen() {
+            const screenOne = document.getElementById('screenOne');
+            const screenTwo = document.getElementById('screenTwo');
+            const song = document.getElementById('bgSong');
+
+            screenOne.classList.add('hidden');
+
+            setTimeout(() => {
+                screenOne.style.display = 'none';
+                screenTwo.style.display = 'flex';
+
+                setTimeout(() => {
+                    screenTwo.style.opacity = '1';
+                }, 50);
+
+                // Play the song once the birthday screen appears
+                if (song) {
+                    song.currentTime = 0;
+                    song.play().catch(err => console.log('Playback blocked:', err));
+                }
+            }, 800);
+        }
+    </script>
+</body>
+</html>
