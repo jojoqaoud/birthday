@@ -177,6 +177,7 @@
             justify-content: space-between;
             align-items: center;
             gap: 40px;
+            position: relative;
             transition: opacity 1s ease;
         }
 
@@ -309,6 +310,118 @@
             position: absolute;
         }
 
+        .voice-btn {
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #5bc0df;
+            color: #0b2239;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .voice-btn:hover {
+            background-color: #ffffff;
+            transform: scale(1.05);
+        }
+
+        .next-btn {
+            margin-top: 20px;
+            background: transparent;
+            color: #5bc0df;
+            border: 2px solid #5bc0df;
+            padding: 10px 26px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .next-btn:hover {
+            background-color: #5bc0df;
+            color: #0b2239;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 8px 18px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 20;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background-color: #fff;
+            color: #0b2239;
+        }
+
+        /* SCREEN THREE: floating birthday emoji party */
+        .screen-three {
+            display: none;
+            opacity: 0;
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            transition: opacity 1s ease;
+        }
+        .floating-emojis {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .floating-emoji {
+            position: absolute;
+            bottom: -60px;
+            font-size: 2rem;
+            animation-name: floatUp;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            will-change: transform, opacity;
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-115vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        .screen-three-content {
+            position: relative;
+            z-index: 2;
+        }
+        .screen-three-video {
+            width: 90vw;
+            max-width: 420px;
+            border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            border: 4px solid #fff;
+            outline: 2px dashed #5bc0df;
+            outline-offset: 4px;
+            background-color: #000;
+        }
+
         @media (max-width: 768px) {
             .screen-two {
                 flex-direction: column;
@@ -384,6 +497,7 @@
 
     <!-- ==================== SCREEN TWO ==================== -->
     <div class="screen-two" id="screenTwo">
+        <button class="back-btn" onclick="goBackToScreenOne()">← Back</button>
 
         <div class="left-side">
             <div class="sticker-photo-container">
@@ -399,46 +513,180 @@
                          onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22340%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23eee%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2216%22 fill=%22%23999%22>Add mohamed.jpg</text></svg>';">
                 </div>
             </div>
-            <h1 class="birthday-title">Happy Birthday<br>Mohamed❤️</h1>
+            <h1 class="birthday-title">Happy Birthday<br>Mohamed ❤️</h1>
         </div>
 
         <div class="right-side">
             <div class="love-letter">
                  <p>22!! woww da ehna kberna khales , kol sana wenta tyb ya rohalbyyyy. mahzoza gdn gdnnn enk m3aya w gnby ya hamody . enta ragly w far7ty w amany w kol haga fy hyaty.</p>
                 <p>sabb dehkty enta ya mido. 3omry ma ashb3 mnk mahma fdlna sawa , ana lw lya 3omr  fa 3ayza a3esho m3ak ya ely maly 3lya . kol sana wenta ahla w agmal w ahan wahed fy el donia , kol sana wenta maly 3lena el donia w ya rab ma thrmna mn dehktk wla dakhltk 3lena ya rohy </p>
+                <p> z3lak ghaly awy 3lya , mthonsh 3lya abdn ya mido. ana lma ba2olk "kolo ela z3lak enta" bab2a f3ln asdaha. Enta ely lya ya hamodyyyy. w ew3a fy yoom tshok hata enk enta aghla ma 3ndy, rbnaaa ykhlek lya ya 3younyy</p>
                 <p>Thank you for being my partner, my best friend, and my greatest blessing. I am so incredibly lucky to call you mine, today and always.</p>
                 <span class="signature">Bhbkkk , joj</span>
+                <button class="voice-btn" onclick="toggleVoiceMessage()" id="voiceBtn">🎤 Play my voice message</button>
+                <br>
+                <button class="next-btn" onclick="goToPartyScreen()">Keep the surprise going ➜</button>
             </div>
             </div>
         </div>
 
     </div>
 
+    <!-- ==================== SCREEN THREE ==================== -->
+    <div class="screen-three" id="screenThree">
+        <button class="back-btn" onclick="goBackToScreenTwo()">← Back</button>
+        <div class="floating-emojis" id="floatingEmojis"></div>
+        <div class="screen-three-content">
+            <!-- Put your video file next to this HTML file, named party-video.mp4 -->
+            <video class="screen-three-video" id="partyVideo" controls playsinline>
+                <source src="party-video.mp4" type="video/mp4">
+                Your browser doesn't support video playback.
+            </video>
+        </div>
+    </div>
+
     <!-- Put your chosen song file next to this HTML file, named song.mp3 (mp3/wav/ogg all work) -->
     <audio id="bgSong" src="song.mp3" preload="auto"></audio>
+    <!-- Put your recorded voice message file next to this HTML file, named voice.mp3 -->
+    <audio id="voiceMessage" src="voice.mp3" preload="auto"></audio>
 
     <script>
+        let isTransitioning = false;
+
+        // Keep the button text and song volume in sync with what the voice message is ACTUALLY doing,
+        // instead of guessing — this avoids getting stuck if playback is blocked or delayed.
+        document.addEventListener('DOMContentLoaded', () => {
+            const voice = document.getElementById('voiceMessage');
+            const song = document.getElementById('bgSong');
+            const btn = document.getElementById('voiceBtn');
+            if (!voice) return;
+
+            voice.addEventListener('play', () => {
+                if (song && !song.paused) song.volume = 0.15; // duck the song while the voice message plays
+                if (btn) btn.textContent = '⏸️ Pause voice message';
+            });
+
+            voice.addEventListener('pause', () => {
+                if (song) song.volume = 1; // restore full volume
+                if (btn) btn.textContent = '🎤 Play my voice message';
+            });
+
+            voice.addEventListener('ended', () => {
+                voice.currentTime = 0;
+                if (song) song.volume = 1;
+                if (btn) btn.textContent = '🎤 Play my voice message';
+            });
+        });
+
+        function transitionTo(hideEl, showEl, onShown) {
+            if (isTransitioning) return; // ignore rapid double-taps that cause stuck screens
+            isTransitioning = true;
+
+            hideEl.classList.add('hidden');
+
+            setTimeout(() => {
+                hideEl.style.display = 'none';
+                hideEl.style.opacity = '0';
+                hideEl.classList.remove('hidden');
+
+                showEl.style.display = 'flex';
+                showEl.classList.remove('hidden');
+                void showEl.offsetWidth; // force reflow so the fade-in actually plays
+
+                requestAnimationFrame(() => {
+                    showEl.style.opacity = '1';
+                });
+
+                if (onShown) onShown();
+                isTransitioning = false;
+            }, 800);
+        }
+
+        function toggleVoiceMessage() {
+            const voice = document.getElementById('voiceMessage');
+            if (voice.paused) {
+                if (voice.ended) voice.currentTime = 0; // restart if it had finished
+                voice.play().catch(err => console.log('Playback blocked:', err));
+            } else {
+                voice.pause();
+            }
+        }
+
+        function goToPartyScreen() {
+            const screenTwo = document.getElementById('screenTwo');
+            const screenThree = document.getElementById('screenThree');
+            transitionTo(screenTwo, screenThree, () => {
+                startFloatingEmojis();
+                const video = document.getElementById('partyVideo');
+                if (video) {
+                    video.currentTime = 0;
+                    video.play().catch(err => console.log('Video playback blocked:', err));
+                }
+            });
+        }
+
+        function startFloatingEmojis() {
+            const container = document.getElementById('floatingEmojis');
+            if (container.dataset.started) return; // only start once
+            container.dataset.started = 'true';
+
+            const emojis = ['🎉', '🎈', '🥳', '🎂', '✨', '🎊', '🎁', '⭐'];
+            const total = 30;
+
+            for (let i = 0; i < total; i++) {
+                createFloatingEmoji(container, emojis);
+            }
+
+            // Keep spawning new ones over time for a continuous effect
+            setInterval(() => createFloatingEmoji(container, emojis), 600);
+        }
+
+        function createFloatingEmoji(container, emojis) {
+            const span = document.createElement('span');
+            span.className = 'floating-emoji';
+            span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            span.style.left = Math.random() * 100 + '%';
+            span.style.fontSize = (1.5 + Math.random() * 1.8) + 'rem';
+            const duration = 6 + Math.random() * 6;
+            span.style.animationDuration = duration + 's';
+            span.style.animationDelay = (Math.random() * 2) + 's';
+            container.appendChild(span);
+
+            // Clean up after animation to avoid piling up DOM nodes
+            setTimeout(() => span.remove(), (duration + 2) * 1000);
+        }
+
+        function goBackToScreenOne() {
+            const screenOne = document.getElementById('screenOne');
+            const screenTwo = document.getElementById('screenTwo');
+            const song = document.getElementById('bgSong');
+            const voice = document.getElementById('voiceMessage');
+
+            if (song) song.pause();
+            if (voice) voice.pause();
+
+            transitionTo(screenTwo, screenOne);
+        }
+
+        function goBackToScreenTwo() {
+            const screenTwo = document.getElementById('screenTwo');
+            const screenThree = document.getElementById('screenThree');
+            const video = document.getElementById('partyVideo');
+            if (video) video.pause();
+            transitionTo(screenThree, screenTwo);
+        }
+
         function goToBirthdayScreen() {
             const screenOne = document.getElementById('screenOne');
             const screenTwo = document.getElementById('screenTwo');
             const song = document.getElementById('bgSong');
 
-            screenOne.classList.add('hidden');
-
-            setTimeout(() => {
-                screenOne.style.display = 'none';
-                screenTwo.style.display = 'flex';
-
-                setTimeout(() => {
-                    screenTwo.style.opacity = '1';
-                }, 50);
-
-                // Play the song once the birthday screen appears
+            transitionTo(screenOne, screenTwo, () => {
                 if (song) {
                     song.currentTime = 0;
                     song.play().catch(err => console.log('Playback blocked:', err));
                 }
-            }, 800);
+            });
         }
     </script>
 </body>
