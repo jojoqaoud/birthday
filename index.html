@@ -481,12 +481,10 @@
         .star-rating span {
             font-size: 2.4rem;
             cursor: pointer;
-            color: rgba(255, 255, 255, 0.25);
             transition: all 0.2s ease;
         }
         .star-rating span.filled {
-            color: #ffd166;
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
         .feedback-input {
             width: 100%;
@@ -826,7 +824,9 @@
                 star.addEventListener('click', () => {
                     selectedRating = parseInt(star.dataset.value, 10);
                     stars.forEach(s => {
-                        s.classList.toggle('filled', parseInt(s.dataset.value, 10) <= selectedRating);
+                        const isFilled = parseInt(s.dataset.value, 10) <= selectedRating;
+                        s.classList.toggle('filled', isFilled);
+                        s.textContent = isFilled ? '❤️' : '🤍';
                     });
                 });
             });
@@ -838,7 +838,7 @@
         function sendRatingToWhatsApp() {
             const feedback = document.getElementById('feedbackText').value.trim();
             const starsText = selectedRating > 0 ? '❤️'.repeat(selectedRating) : 'No rating selected';
-            let message = `dool kam alb dool?? ${starsText}`;
+            let message = `Rating for the birthday surprise: ${starsText}`;
             if (feedback) {
                 message += `\nNote: ${feedback}`;
             }
