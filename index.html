@@ -562,7 +562,7 @@
             if (!voice) return;
 
             voice.addEventListener('play', () => {
-                if (song && !song.paused) song.volume = 0.15; // duck the song while the voice message plays
+                if (song && !song.paused) song.volume = 0.015; // duck the song while the voice message plays
                 if (btn) btn.textContent = '⏸️ Pause voice message';
             });
 
