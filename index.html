@@ -653,7 +653,7 @@
     <div class="screen-four" id="screenFour">
         <button class="back-btn" onclick="goBackToScreenThree()">← Back</button>
         <div class="rating-card">
-            <h1>3ayz t2ol haga ?! (feh mesaha le el kalam el romancy) 💌</h1>
+            <h1> <p>3ayz t2ol haga ?!</p> <p>(feh mesaha le el kalam el romancy) 💌</p></h1>
             <p class="rating-subtitle">enty ba2ety 22 ya basbosa??</p>
             <div class="star-rating" id="starRating">
                 <span data-value="1">🤍</span>
@@ -662,7 +662,7 @@
                 <span data-value="4">🤍</span>
                 <span data-value="5">🤍</span>
             </div>
-            <textarea class="feedback-input" id="feedbackText" placeholder="Write a little note (optional)..."></textarea>
+            <textarea class="feedback-input" id="feedbackText" placeholder="..."></textarea>
             <button class="whatsapp-btn" onclick="sendRatingToWhatsApp()">📲 Send on WhatsApp</button>
         </div>
     </div>
@@ -838,7 +838,7 @@
         function sendRatingToWhatsApp() {
             const feedback = document.getElementById('feedbackText').value.trim();
             const starsText = selectedRating > 0 ? '❤️'.repeat(selectedRating) : 'No rating selected';
-            let message = `Rating for the birthday surprise: ${starsText}`;
+            let message = `kam alb dool??? ${starsText}`;
             if (feedback) {
                 message += `\nNote: ${feedback}`;
             }
