@@ -310,24 +310,42 @@
             position: absolute;
         }
 
-        .voice-btn {
-            margin-top: 10px;
-            display: inline-flex;
+        .voice-message-block {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+        }
+        .voice-label {
+            font-size: 0.95rem;
+            color: #b0c4de;
+        }
+        .voice-icon-btn {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
             background-color: #5bc0df;
-            color: #0b2239;
             border: none;
-            padding: 12px 28px;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 50px;
+            color: #0b2239;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(91, 192, 223, 0.4);
         }
-        .voice-btn:hover {
+        .voice-icon-btn:hover {
             background-color: #ffffff;
-            transform: scale(1.05);
+            transform: scale(1.08);
+        }
+        .voice-icon-btn #voiceIcon {
+            /* nudge the play triangle so it looks centered */
+            margin-left: 2px;
+        }
+        .voice-icon-btn.is-playing #voiceIcon {
+            margin-left: 0;
         }
 
         .next-btn {
@@ -420,6 +438,89 @@
             outline: 2px dashed #5bc0df;
             outline-offset: 4px;
             background-color: #000;
+        }
+
+        /* SCREEN FOUR: rate your experience + send via WhatsApp */
+        .screen-four {
+            display: none;
+            opacity: 0;
+            width: 100%;
+            max-width: 480px;
+            padding: 40px 30px;
+            position: relative;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: opacity 1s ease;
+        }
+        .rating-card {
+            background: rgba(255, 255, 255, 0.06);
+            padding: 35px 30px;
+            border-radius: 20px;
+            border-left: 4px solid #5bc0df;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 100%;
+        }
+        .screen-four h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 2.6rem;
+            margin-bottom: 8px;
+        }
+        .screen-four p.rating-subtitle {
+            color: #b0c4de;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .star-rating span {
+            font-size: 2.4rem;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.25);
+            transition: all 0.2s ease;
+        }
+        .star-rating span.filled {
+            color: #ffd166;
+            transform: scale(1.1);
+        }
+        .feedback-input {
+            width: 100%;
+            min-height: 90px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            padding: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            resize: vertical;
+            margin-bottom: 20px;
+        }
+        .feedback-input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: #0b2239;
+            border: none;
+            padding: 14px 35px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-btn:hover {
+            background-color: #1ebe5a;
+            transform: scale(1.05);
         }
 
         @media (max-width: 768px) {
@@ -523,7 +624,10 @@
                 <p> z3lak ghaly awy 3lya , mthonsh 3lya abdn ya mido. ana lma ba2olk "kolo ela z3lak enta" bab2a f3ln asdaha. Enta ely lya ya hamodyyyy. w ew3a fy yoom tshok hata enk enta aghla ma 3ndy, rbnaaa ykhlek lya ya 3younyy</p>
                 <p>Thank you for being my partner, my best friend, and my greatest blessing. I am so incredibly lucky to call you mine, today and always.</p>
                 <span class="signature">Bhbkkk , joj</span>
-                <button class="voice-btn" onclick="toggleVoiceMessage()" id="voiceBtn">🎤 Play my voice message</button>
+                <div class="voice-message-block">
+                    <p class="voice-label">🎤 Voice message</p>
+                    <button class="voice-icon-btn" onclick="toggleVoiceMessage()" id="voiceBtn"><span id="voiceIcon">▶</span></button>
+                </div>
                 <br>
                 <button class="next-btn" onclick="goToPartyScreen()">Keep the surprise going ➜</button>
             </div>
@@ -542,6 +646,26 @@
                 <source src="party-video.mp4" type="video/mp4">
                 Your browser doesn't support video playback.
             </video>
+            <br>
+            <button class="next-btn" style="position: relative; z-index: 2;" onclick="goToRatingScreen()">One last thing ➜</button>
+        </div>
+    </div>
+
+    <!-- ==================== SCREEN FOUR ==================== -->
+    <div class="screen-four" id="screenFour">
+        <button class="back-btn" onclick="goBackToScreenThree()">← Back</button>
+        <div class="rating-card">
+            <h1>3ayz t2ol haga ?! (feh mesaha le el kalam el romancy) 💌</h1>
+            <p class="rating-subtitle">enty ba2ety 22 ya basbosa??</p>
+            <div class="star-rating" id="starRating">
+                <span data-value="1">🤍</span>
+                <span data-value="2">🤍</span>
+                <span data-value="3">🤍</span>
+                <span data-value="4">🤍</span>
+                <span data-value="5">🤍</span>
+            </div>
+            <textarea class="feedback-input" id="feedbackText" placeholder="Write a little note (optional)..."></textarea>
+            <button class="whatsapp-btn" onclick="sendRatingToWhatsApp()">📲 Send on WhatsApp</button>
         </div>
     </div>
 
@@ -553,28 +677,32 @@
     <script>
         let isTransitioning = false;
 
-        // Keep the button text and song volume in sync with what the voice message is ACTUALLY doing,
+        // Keep the icon and song volume in sync with what the voice message is ACTUALLY doing,
         // instead of guessing — this avoids getting stuck if playback is blocked or delayed.
         document.addEventListener('DOMContentLoaded', () => {
             const voice = document.getElementById('voiceMessage');
             const song = document.getElementById('bgSong');
             const btn = document.getElementById('voiceBtn');
+            const icon = document.getElementById('voiceIcon');
             if (!voice) return;
 
             voice.addEventListener('play', () => {
-                if (song && !song.paused) song.volume = 0.00000005; // duck the song while the voice message plays
-                if (btn) btn.textContent = '⏸️ Pause voice message';
+                if (song && !song.paused) song.volume = 0.15; // duck the song while the voice message plays
+                if (icon) icon.textContent = '⏸';
+                if (btn) btn.classList.add('is-playing');
             });
 
             voice.addEventListener('pause', () => {
                 if (song) song.volume = 1; // restore full volume
-                if (btn) btn.textContent = '🎤 Play my voice message';
+                if (icon) icon.textContent = '▶';
+                if (btn) btn.classList.remove('is-playing');
             });
 
             voice.addEventListener('ended', () => {
                 voice.currentTime = 0;
                 if (song) song.volume = 1;
-                if (btn) btn.textContent = '🎤 Play my voice message';
+                if (icon) icon.textContent = '▶';
+                if (btn) btn.classList.remove('is-playing');
             });
         });
 
@@ -674,6 +802,48 @@
             const video = document.getElementById('partyVideo');
             if (video) video.pause();
             transitionTo(screenThree, screenTwo);
+        }
+
+        function goToRatingScreen() {
+            const screenThree = document.getElementById('screenThree');
+            const screenFour = document.getElementById('screenFour');
+            const video = document.getElementById('partyVideo');
+            if (video) video.pause();
+            transitionTo(screenThree, screenFour);
+        }
+
+        function goBackToScreenThree() {
+            const screenThree = document.getElementById('screenThree');
+            const screenFour = document.getElementById('screenFour');
+            transitionTo(screenFour, screenThree);
+        }
+
+        // Star rating selection
+        let selectedRating = 0;
+        document.addEventListener('DOMContentLoaded', () => {
+            const stars = document.querySelectorAll('#starRating span');
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    selectedRating = parseInt(star.dataset.value, 10);
+                    stars.forEach(s => {
+                        s.classList.toggle('filled', parseInt(s.dataset.value, 10) <= selectedRating);
+                    });
+                });
+            });
+        });
+
+        // Put the WhatsApp number here in international format, no + or spaces (e.g. 201234567890 for Egypt)
+        const WHATSAPP_NUMBER = '201016717168';
+
+        function sendRatingToWhatsApp() {
+            const feedback = document.getElementById('feedbackText').value.trim();
+            const starsText = selectedRating > 0 ? '❤️'.repeat(selectedRating) : 'No rating selected';
+            let message = `Rating for the birthday surprise: ${starsText}`;
+            if (feedback) {
+                message += `\nNote: ${feedback}`;
+            }
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
         }
 
         function goToBirthdayScreen() {
